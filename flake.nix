@@ -3,15 +3,17 @@
   
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stylix.url = "github:danth/stylix";
-    }; 
+    stylix = {
+       url = "github:danth/stylix";
+       inputs.nixpkgs.follows = "nixpkgs";
+    };
      home-manager = {
        url = "github:nix-community/home-manager";
        inputs.nixpkgs.follows = "nixpkgs";
     };
     aagl.url = "github:ezKEa/aagl-gtk-on-nix";
     aagl.inputs.nixpkgs.follows = "nixpkgs";
-  
+  }; 
 
    outputs = { self, nixpkgs, aagl, stylix, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {

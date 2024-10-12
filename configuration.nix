@@ -63,7 +63,6 @@
     polarity = "dark";
     targets = {
       spicetify.enable = true;
-      kitty.enable = false;
       gtk.enable = false;
     };
   };
