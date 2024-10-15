@@ -11,7 +11,6 @@
       enable = true;
       xwayland.enable = true;
     };
-
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
@@ -23,15 +22,16 @@
   # Stylix
   stylix = {
     enable = true;
+    autoEnable = false;
     base16Scheme = {
       base00 = "282828";
-      base01 = "ed787e";
-      base02 = "f08f94";
-      base03 = "f3a5a9";
-      base04 = "f6b9bc";
-      base05 = "f9d2d4";
-      base06 = "fce8e9"; 
-      base07 = "ffffff";
+      base01 = "2f2f2f";
+      base02 = "363636";
+      base03 = "3c3c3c";
+      base04 = "434343";
+      base05 = "4a4a4a";
+      base06 = "505050"; 
+      base07 = "555555";
       base08 = "ea6269";
       base09 = "ed787e";
       base0A = "f08f94";
@@ -47,29 +47,38 @@
 #      package = "Qogir-icon-theme";
 #    };
     fonts = {
-#      sansSerif = {
-#        name = "Purisa";
-#        package = pkgs.purisa-font;
-#      };
-#      serif = { 
-#        name = "Purisa";
-#        package = pkgs.purisa-font;
-#      };
+      sansSerif = {
+        name = "Hurmit Nerd Font";
+        package = pkgs.nerdfonts.override {fonts = ["Hermit"];};
+      };
+      serif = {
+        name = "Hurmit Nerd Font";
+        package = pkgs.nerdfonts.override {fonts = ["Hermit"];}; 
+      };
       monospace = {
-        name = "JetBrainsMono Nerd Font Mono";
-        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+        name = "Hurmit Nerd Font";
+        package = pkgs.nerdfonts.override {fonts = ["Hermit"];};
       };
     };
     polarity = "dark";
     targets = {
       spicetify.enable = true;
       gtk.enable = false;
+      grub = {
+        enable = true;
+        useImage = true;
+      };
+      plymouth.enable = true;
+      console.enable = true;
+      lightdm.enable = true;
     };
   };
 
   # Extra
-  services.flatpak.enable = true;
-  services.printing.enable = true;
+  services = {
+    flatpak.enable = true;
+    printing.enable = true;
+  };
 
   # NixOS Settings
   nix.settings = {
@@ -189,32 +198,25 @@
      systemPackages = with pkgs; [
        brave
        kitty
-       vscode
        audacity
        pinta
        cava
-       xfce.thunar
-       xfce.thunar-volman
        heroic
        neothesia
        viber
        prismlauncher
        discordo
        cmatrix
-       dunst
        libnotify
        hyprpaper
-       swaybg
-       wpaperd
-       mpvpaper
-       swww
        rofi-wayland
        spicetify-cli
-              
-       (waybar.overrideAttrs (oldAttrs: {
-          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-         })
-       )
+       bottles
+#       xfce.thunar
+#       xfce.thunar-volman
+       dunst
+       yazi
+      
      ];
      sessionVariables = {
        WLR_NO_HARDWARE_CURSORS = "1";

@@ -1,30 +1,42 @@
 { config, pkgs, ... }:
 
 {
-  
-  home.username = "antam";
-  home.homeDirectory = "/home/antam";
-
-  home.stateVersion = "24.05";
-
-  home.packages = [
+  # Home  
+  home = {
+    username = "antam";
+    homeDirectory = "/home/antam";
+    stateVersion = "24.05";
+    packages = [
     
-  ];
-
-  home.file = {
+    ];
+    file = {
     
+    };
+    sessionVariables = {
+      EDITOR = "kate";
+    };
   };
-
-  home.sessionVariables = {
-#    EDITOR = "kate";
-  };
+ 
+  # Extra 
+#  services  = { };
 
   # Stylix
   stylix = {
+    enable = true;
     targets = {
       spicetify.enable = true;
+      kitty.enable = false;
     };
   };
-
-  programs.home-manager.enable = true;
+  
+  # Apps
+  programs = {
+    home-manager.enable = true;
+    waybar = {
+      systemd = {
+        enable = true;
+        target = "hyprland-session.target";
+      };
+    };
+  };
 }
