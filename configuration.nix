@@ -71,6 +71,7 @@
       plymouth.enable = true;
       console.enable = true;
       lightdm.enable = true;
+      nixos-icons.enable = true;
     };
   };
 
@@ -81,10 +82,12 @@
   };
 
   # NixOS Settings
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    substituters = [ "https://ezkea.cachix.org" ];
-    trusted-public-keys = [ "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI=" ];
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      substituters = [ "https://ezkea.cachix.org" ];
+      trusted-public-keys = [ "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI=" ];
+    };
   };
 
   # Imports
@@ -107,33 +110,38 @@
     };
     
     plymouth = {
-      enable = true;
+      enable = false;
     };
   };
 
   # Network, Locales & Loaction  
 
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "nixos";
+    networkmanager.enable = true;
+  };
 
   time.timeZone = "Europe/Athens";
 
-  i18n.defaultLocale = "en_GB.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "el_GR.UTF-8";
-    LC_IDENTIFICATION = "el_GR.UTF-8";
-    LC_MEASUREMENT = "el_GR.UTF-8";
-    LC_MONETARY = "el_GR.UTF-8";
-    LC_NAME = "el_GR.UTF-8";
-    LC_NUMERIC = "el_GR.UTF-8";
-    LC_PAPER = "el_GR.UTF-8";
-    LC_TELEPHONE = "el_GR.UTF-8";
-    LC_TIME = "el_GR.UTF-8";
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "el_GR.UTF-8";
+      LC_IDENTIFICATION = "el_GR.UTF-8";
+      LC_MEASUREMENT = "el_GR.UTF-8";
+      LC_MONETARY = "el_GR.UTF-8";
+      LC_NAME = "el_GR.UTF-8";
+      LC_NUMERIC = "el_GR.UTF-8";
+      LC_PAPER = "el_GR.UTF-8";
+      LC_TELEPHONE = "el_GR.UTF-8";
+      LC_TIME = "el_GR.UTF-8";
+    };
   };
-
   # Wayland, X11, Keyboards, Keymaps, Display Managers & Desktop Environments  
   services = {
-    desktopManager.plasma6.enable = true;
+    desktopManager = {
+      plasma6.enable = true;
+    };
     xserver = {
       enable = true;
       xkb = {
@@ -161,9 +169,12 @@
   # Audio & Sudo
   security = {
     rtkit.enable = true;
-    sudo.enable = true;
-    sudo.wheelNeedsPassword = false;
+    sudo = {
+      enable = true;
+      wheelNeedsPassword = false;
+    };
   };
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -179,7 +190,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       neofetch
-      armcord
+      legcord
       kdePackages.kate
             
     ];
@@ -211,12 +222,15 @@
        hyprpaper
        rofi-wayland
        spicetify-cli
-       bottles
+       stremio
 #       xfce.thunar
 #       xfce.thunar-volman
        dunst
        yazi
-      
+       wineWow64Packages.waylandFull
+       btop
+       obs-studio
+       whatsapp-for-linux     
      ];
      sessionVariables = {
        WLR_NO_HARDWARE_CURSORS = "1";
@@ -226,7 +240,7 @@
   
   # Hardware
   hardware = {
-    opengl.enable = true;
+    graphics.enable = true;
     nvidia.modesetting.enable = true;
   };
 
